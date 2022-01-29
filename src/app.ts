@@ -8,6 +8,8 @@ import routes from './routes'
 const app = express()
 const PORT = config.get("PORT")
 
+app.use(express.json())
+
 app.use(routes)
 
 app.listen(PORT, () => {

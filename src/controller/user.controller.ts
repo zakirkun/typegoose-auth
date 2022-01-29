@@ -1,13 +1,24 @@
 import {Request, Response} from 'express'
 import { CreateuserInput } from '../schema/user.schema';
 import { createUser } from '../service/user.service';
+import log from '../utils/logger';
+import SendEmail from '../utils/mailer';
 
 export async function createUserHanlder(req: Request<{}, {}, CreateuserInput>, res: Response){
 
     const body = req.body
+
+    console.log( {body} )
     
     try {
         const user = await createUser(body)
+
+        await SendEmail({
+            from: "test@example.app",
+            to: user.email,
+            subject: "Please verify your account",
+            text: `Verification code ${user.verificationCode}. Id: ${user._id}`
+        })
 
         return res.status(201).json({
             "message": "Success created user",
@@ -21,8 +32,14 @@ export async function createUserHanlder(req: Request<{}, {}, CreateuserInput>, r
             })
         }
 
+        log.error(e, "Internal error")
+
         return res.status(500).json({
             "error": e
         })
     }
+}
+
+export async function verifyUserHandler() {
+    
 }
