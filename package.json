@@ -17,7 +17,7 @@
     "express": "^5.0.0-alpha.8",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "mongoose": "^6.1.8",
+    "mongoose": "^6.4.6",
     "nanoid": "^3.2.0",
     "nodemailer": "^6.7.2",
     "pino": "^7.6.4",
